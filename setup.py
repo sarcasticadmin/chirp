@@ -174,7 +174,12 @@ if sys.platform == "darwin":
 elif sys.platform == "win32":
     win32_build()
 else:
-    if sys.argv[1] == 'chirpc':
+    import argparse
+    argparser = argparse.ArgumentParser(add_help=False)
+    argparser.add_argument('--cli', action='store_true')
+    args, unknown = argparser.parse_known_args()
+    sys.argv = [sys.argv[0]] + unknown
+    if args.cli:
         chirpc_build()
     else:
         default_build()
