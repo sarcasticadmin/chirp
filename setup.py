@@ -175,7 +175,7 @@ else:
     argparser.add_argument('--clionly', action='store_true')
     args, unknown = argparser.parse_known_args()
     sys.argv = [sys.argv[0]] + unknown
-    if args.cli:
+    if args.clionly:
         chirpc_build()
     else:
         default_build()
