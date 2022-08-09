@@ -174,7 +174,7 @@ if sys.platform == "darwin":
 elif sys.platform == "win32":
     win32_build()
 else:
-    if len(sys.argv) == 1 and sys.argv[1] == 'chirpc':
+    if sys.argv[1] == 'chirpc':
         chirpc_build()
     else:
         default_build()
