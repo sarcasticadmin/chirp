@@ -136,6 +136,21 @@ def default_build():
                     ] + locale_files)
 
 
+def chirpc_build():
+    from distutils.core import setup
+    from glob import glob
+
+    stock_configs = glob("stock_configs/*")
+
+    setup(
+        name="chirpc",
+        packages=["chirp", "chirp.drivers"],
+        version=CHIRP_VERSION,
+        scripts=["chirpc"],
+        data_files=[('share/doc/chirp', ['COPYING']),
+                    ('share/chirp/stock_configs', stock_configs)]
+    )
+
 def nuke_manifest(*files):
     for i in ["MANIFEST", "MANIFEST.in"]:
         if os.path.exists(i):
@@ -155,4 +170,12 @@ if sys.platform == "darwin":
 elif sys.platform == "win32":
     win32_build()
 else:
-    default_build()
+    import argparse
+    argparser = argparse.ArgumentParser(add_help=False)
+    argparser.add_argument('--cli', action='store_true')
+    args, unknown = argparser.parse_known_args()
+    sys.argv = [sys.argv[0]] + unknown
+    if args.cli:
+        chirpc_build()
+    else:
+        default_build()
