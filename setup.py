@@ -172,7 +172,7 @@ elif sys.platform == "win32":
 else:
     import argparse
     argparser = argparse.ArgumentParser(add_help=False)
-    argparser.add_argument('--cli', action='store_true')
+    argparser.add_argument('--clionly', action='store_true')
     args, unknown = argparser.parse_known_args()
     sys.argv = [sys.argv[0]] + unknown
     if args.cli:
